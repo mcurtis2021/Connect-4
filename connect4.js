@@ -17,19 +17,15 @@ const board = []; // array of rows, each row is array of cells  (board[y][x])
  */
 
 function makeBoard() {
-  // TODO: set "board" to empty HEIGHT x WIDTH matrix array
   for (let y = 0; y < HEIGHT; y++) {
     board.push(Array.from({ length: WIDTH }));
-    console.log(`y is ${y} and board is ${board}`);
   }
 }
 
 /** makeHtmlBoard: make HTML table and row of column tops. */
 
 function makeHtmlBoard() {
-  // TODO: get "htmlBoard" variable from the item in HTML w/ID of "board"
   const htmlBoard = document.getElementById("board");
-  // TODO: add comment for this code
   // creates a clickable bar on top
   const top = document.createElement("tr");
   top.setAttribute("id", "column-top");
@@ -44,7 +40,6 @@ function makeHtmlBoard() {
   }
   htmlBoard.append(top); // sends top clickable row to board
 
-  // TODO: add comment for this code
   // runs through an array that gives tr to 'y's to separate and gives td and id to each cell
   for (let y = 0; y < HEIGHT; y++) {
     const row = document.createElement("tr");
@@ -60,7 +55,6 @@ function makeHtmlBoard() {
 /** findSpotForCol: given column x, return top empty y (null if filled) */
 
 function findSpotForCol(x) {
-  // TODO: write the real version of this, rather than always returning 0
   for (let y = HEIGHT - 1; y >= 0; y--) {
     if (!board[y][x]) {
       return y;
@@ -72,7 +66,6 @@ function findSpotForCol(x) {
 /** placeInTable: update DOM to place piece into HTML table of board */
 
 function placeInTable(y, x) {
-  // TODO: make a div and insert into correct table cell
   const marked = document.createElement("div");
   const location = document.getElementById(`${y}-${x}`);
 
@@ -84,7 +77,6 @@ function placeInTable(y, x) {
 /** endGame: announce game end */
 
 function endGame(msg) {
-  // TODO: pop up alert message
   window.alert(msg);
 }
 
@@ -92,9 +84,8 @@ function endGame(msg) {
 
 function handleClick(evt) {
   // get x from ID of clicked cell
-  // what is +evt.
-  let x = +evt.target.id;
-  console.log(clicked);
+  let x = evt.target.id;
+
   // get next spot in column (if none, ignore click)
   const y = findSpotForCol(x);
   if (y === null) {
@@ -102,7 +93,6 @@ function handleClick(evt) {
   }
 
   // place piece in board and add to HTML table
-  // TODO: add line to update in-memory board
   board[y][x] = currPlayer;
   placeInTable(y, x);
 
@@ -117,9 +107,8 @@ function handleClick(evt) {
     return endgame("Tie");
   }
   // switch players
-  // TODO: switch currPlayer 1 <-> 2
-  if (clicked % 2 === 0) currPlayer = 2;
   if (clicked % 2 !== 0) currPlayer = 1;
+  if (clicked % 2 === 0) currPlayer = 2;
   clicked++;
 }
 
@@ -140,8 +129,6 @@ function checkForWin() {
         board[y][x] === currPlayer
     );
   }
-
-  // TODO: read and understand this code. Add comments to help you.
 
   for (let y = 0; y < HEIGHT; y++) {
     for (let x = 0; x < WIDTH; x++) {
